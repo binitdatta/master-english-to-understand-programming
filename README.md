@@ -15,3 +15,23 @@ Say humans has a dependency of Oxygen. Oxygen is available in atmosphere on land
 The next most important English term is Inversion of Control. It is another English phrase that starts with Inversion. What do we get when we invert the fraction 1/3? We get 3/1 or 3. So Inversion is the process of flipping (turning an object upside down) an object. When our program creates all its dependent objects, we say it has full control and all the lack of flexibility that comes with it. When Spring Framework takes the control away from out program, creates the dependent objects and injects them to our program, we call it Inversion of Control or IOC. As I said, the better we understand English language terms and phrases , the better we will understand information technology.
 
 All that being said, not all program have the same dependency. Tigers can eat raw meat. Humans (most of them) have to cook meat before they are eaten. Some humans do not eat meat and call themselves vegetarians. Similarly, some program may access MySQL while others may access Oracle. Some other may access ActiveMQ or RabbitMQ. Some programs may need Jackson JSON processor or others may need Google's GSON. A REST Controller may need a Service while that Service may need a Data Access Object Repository. All these different dependencies need to be specified to Spring in some way. We have multiple ways of doing so in Spring. We can use old XML but it still works. We can also use Java configuration or we can use annotations. Spring reads these XML, annotations or java config and creates objects on our behalf and injects them to our program. 
+
+# How does Apache Tomcat Processes Requests from multiple users?
+
+# Answer 
+
+Servlet containers like Tomcat / Jetty have a pool / collection of threads say 200. These pool of threads is created when the container starts. When individual user's request is received by the server, it picks a thread from that pool and that single thread is actually working only for that single user, waiting on IO, doing CPU processing etc. When the processing is complete, it is this thread that sends the user's response to the user and goes back to the pool to serve another user'
+
+This model has some limitation when a lot of traffic comes to the server and the available threads are exhausted. Normally it is solved by creating a pool of the servlet container itself like 10 Tomcat server and putting them behind a load balancer. User first reach their LoadBalancer and the LB distributes the traffic to the pool of Tomcats.
+
+# What is the difference between Aggregation and Composition in Object Oriented Programming
+
+# Answer
+
+All things that are Information Technology are present so vividly in real life, that we may do well to understand the English meaning of the term and look for real life examples. The word compose is present in the music industry since hundreds of years before it came to programming as composition. In the music industry, a music director composes songs from lyrics, notes, beats and instrument players. So when several smaller objects / things are combined together to form one object i.e. song, we say that song is composed of lyrics, notes, beats and other things.
+
+Similarly in Object Oriented programming, which obviously came from life experiences of the creators, not the other way round, composition means using smaller things to make something bigger. So when we are using @Autowired for a Service class instance inside a Controller, we are making the controller using a service instance. We can also say the song has lyrics in real life, the controller has a service attribute in programming, A Cow has four legs in real life, the Cow class consists of an array of Leg objects etc.
+
+Aggregation is about hierarchy / inheritance. Human children has their outer and inner organs which is composition. However, how these organs look and work may have been "aggregated" from the genes of their parents and grandparents. A Tiger inherits his Lung from his parent Tiger and Tigress, a Fish inherits his / her gills from his / her parent Fish, Mukesh inherited his wealth partly from Dhirubhai. Aggregation is all about summation as well. We add up genes from parents / grandparents on each side and arrive at a certain child . Similarly, rich parents of a certain child contribute their own money which is then "aggregated" in the child's wealth.
+
+In programming, when we give birth to children by "extending" a parent class we call it aggregation. We extend an Animal class to create Tigers, Cows etc. But as the teeth of a Tiger is different from that of a Cow, we compose of different kinds of teeth in Tigers and Cows.
