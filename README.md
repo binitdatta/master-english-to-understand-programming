@@ -64,7 +64,7 @@ We can certainly have all common model objects pulled together into a common uti
 
 # Shall we use Java 8 Optional Type in API Return types
 
-# Anser
+# Answer
 
 Optional is a Java 8 feature and while we can surely use it for internal operations, using it as return values may have some consequences if a java 7 or lower client is used to access the API. However, people who are still using java 7 or lower, should upgrade sooner than later now that Java is coming with a new version every six months.
 
