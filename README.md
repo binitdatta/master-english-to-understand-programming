@@ -35,3 +35,57 @@ Similarly in Object Oriented programming, which obviously came from life experie
 Aggregation is about hierarchy / inheritance. Human children has their outer and inner organs which is composition. However, how these organs look and work may have been "aggregated" from the genes of their parents and grandparents. A Tiger inherits his Lung from his parent Tiger and Tigress, a Fish inherits his / her gills from his / her parent Fish, Mukesh inherited his wealth partly from Dhirubhai. Aggregation is all about summation as well. We add up genes from parents / grandparents on each side and arrive at a certain child . Similarly, rich parents of a certain child contribute their own money which is then "aggregated" in the child's wealth.
 
 In programming, when we give birth to children by "extending" a parent class we call it aggregation. We extend an Animal class to create Tigers, Cows etc. But as the teeth of a Tiger is different from that of a Cow, we compose of different kinds of teeth in Tigers and Cows.
+
+# How do we secure microservices
+
+# Answer
+
+Here is an working git repository for securing Microservices using an Angular 6 front end
+
+https://github.com/binitdatta/rollingstone-spring-security
+
+Take a look.
+
+If you want to learn more about the theory , I can recommend a book called Spring Security Third edition from Pactpub.com. Look into Chapter 9 and Chapter 17 and you can ask question here if something is not clear from the book chapters.
+
+# How does Spring Cloud Remote Config Client Work? Do they make a single or multiple calls to get properties
+
+# Answer
+
+You can check this out https://www.udemy.com/practical-world-java-spring-microservices/
+
+As I showed the config service testing with a web browser that makes a HTTP call, the config client also makes the same call with the same argument and gets all properties in the same call. There are multiple ways to configure clients about changes on remote properties. First of all, some properties like database username and password etc, will not make sense for them get refreshed after start. The Spring Data JPA is configured to create the datasource, transaction and connection pool objects at the start. So some properties do need restarts irrespective of whether they are coming from local file or fetched remotely. Other properties such as message or error messages, internationalization properties etc, can be configured to either be refreshed manually or pragmatically . There is yet another way using spring-cloud-bus to send events to config clients whenever properties change on the remote server. This is the best setup as this will not need any manual handling.
+
+# Shall we create a common project for all the Model / Domain objects shared by Microservices and let each Microservice have their own copy
+
+# Answer.
+
+We can certainly have all common model objects pulled together into a common utility java library , build it and push it as a jar to an internal Artifactory. A lot companies I know uses this method through an internally hosted Artifactory. All dependent applications can just have the repository configured and  have the common jar as a dependency. The con is less flexibility. When one of the Microservices needs an additional fields, every other service also has to change. The solution is if one application needs changes, it should use a local DTO and keep the common model object unchanged. As this is a tutorial, I did not go through the ARtifactory process as it would be a distraction from teaching Micro services.
+
+# Shall we use Java 8 Optional Type in API Return types
+
+# Anser
+
+Optional is a Java 8 feature and while we can surely use it for internal operations, using it as return values may have some consequences if a java 7 or lower client is used to access the API. However, people who are still using java 7 or lower, should upgrade sooner than later now that Java is coming with a new version every six months.
+
+# Why should we design out applications using interfaces
+
+# Answer
+
+Using interfaces everywhere makes our application flexible. Using a service interface for injecting services to controllers gives us an opportunity to have multiple different implementations and change the dependency injection either through spring profiles or very little code change. Like if we have two implementations of one service interface and each are annotated with @Service annotation, either we can comment out one implementation and spring will pick the other or we can use Qualifiers if we want both. Spring Profile also is a great help.
+
+# What are Transactions?
+
+# Answer
+
+Transactions are implicit when we are dealing with one single record insert / delete and update etc. We do not need transaction in these situations as if that one statement fails, the consistency of the database won;t be impacted. When dealing with more than one record such as a account transfer involving at least two account, one from which we withdraw money and another to which we deposit money, transactions are needed. Why? As we are having two separate update statements for updating the two accounts, if one succeeds and the other fails, the database will be inconsistent. In such situation as we need to tell the database that both operations either fail or succeed together we create an boundary to tell the DB to treat them as a single transaction and monitor their success or failure together. It is very much lik the english meaning of the word transaction. When we buy things in the market, we pay money and the shop-owner give us the product. If we either do not pay for the product or we pay and the shop-owner does not give the product, the transaction between us and the shop-owner will be clean and there will be disputes.
+
+Transactions in the technical world is just a common sense based implementation of the real world version.
+
+# What is BOM in Java Maven Applications
+
+# Answer
+
+In general the BOM term came from the manufacturing world and it stands for Bill of Materials. It is a short form for listing all the spare parts of making a larger object like a Car. A BOM for a Car would include an engine, four tires, windows, rood and the rest of the items that make a car. In Maven / Gradle, we have situation where we need to control the versions of multiple dependencies centrally. So we define one dependenyManagement element and control the dependency version from there. All the other dependency then do not have to include a version element. For example, if you look into the pom.xml or build.gradle we are using in the project repositories, we have a dependencyManagement element for Spring Cloud and we include a version. Once we do that, all other actual dependencies like eureka or hystrix can be specified without a version.
+
+
