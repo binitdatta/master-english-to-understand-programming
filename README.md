@@ -89,3 +89,152 @@ Transactions in the technical world is just a common sense based implementation 
 In general the BOM term came from the manufacturing world and it stands for Bill of Materials. It is a short form for listing all the spare parts of making a larger object like a Car. A BOM for a Car would include an engine, four tires, windows, rood and the rest of the items that make a car. In Maven / Gradle, we have situation where we need to control the versions of multiple dependencies centrally. So we define one dependenyManagement element and control the dependency version from there. All the other dependency then do not have to include a version element. For example, if you look into the pom.xml or build.gradle we are using in the project repositories, we have a dependencyManagement element for Spring Cloud and we include a version. Once we do that, all other actual dependencies like eureka or hystrix can be specified without a version.
 
 
+# What are the OAuth2 Grant Type and How they Work
+
+# Answer
+
+# 1. OAuth2 Roles
+
+	## A. Resource Owner : User
+	## B. Resource Server : Google Mail / Gmail
+	## C. Authorization Server : The Server issuing Access Token i.e. Facebook / Google
+	## D. Client i.e. Browser based SPAs, Server Side Spring Boot / NodeJS Client, Machines, 
+	
+# 2. OAuth2 has different type of Grant Type because there are different types of use cases. There are lots of bullets but none of them silver colred.
+
+# 3. Authorization Code Grant 
+
+	A. This is for the type of third party applications that wants to leverage Facebook / Google to provide authentication / authorization services instead of providing their own , risking legal suites in case of hacking.
+	
+	B. These type of clients start with first registering themselves with the Authorization Service Provider such as FaceBook
+	
+	C. When these applications, register they get two things among others
+	
+		I. A Client Identifier
+		II. A Client Secret
+		
+	D. Registration is an one time activity and do not needs to happen every-time the client uses the Auth Service
+	
+	E. As these types of clients need to keep a pair client identifier and the client secret they typically runs in the server as browse javascript clients cannot keep secrets
+	
+	F. The clients in this grant type make two calls 
+	
+		I. First call to get an Auth Code from the Auth Server
+		II. The second call using the Auth Code received from the first call, gets the client their actual access token. The access token is short lived i.e. 15 minutes not 15 years.
+		III. Finally clients make the actual service call i.e. get your friend list from Facebook , using the access token
+		IV. From time to time, client also make another call to the Auth Server to refresh the access token
+
+	G. Following are the parameters that the client sends for the auth code call i.e. first call HTTP GET
+		
+		I. response_type with the value code
+		II. client_id with the client identifier
+		III. redirect_uri : When the call to the auth server completes with success . failure where should the Auth server redirect the client to
+		IV. scope - Read Contacts, Add Contacts, Get Products, Add Product etc.
+		V. state with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal but highly recommended to protect against all the gentlemen out there in the Internet
+		
+		
+	H. When the Auth Server determines that the call paramaters sent in the above call are all valid, it send an auth code with the CSRF token back to the client reditect_uri
+	
+	I. The client should match the value of the CSRF token sent back by the Auth Server with the one it originally sent to the Auth Server
+	
+	
+	J. Now that the client has the Auth Code, it needs the access token and fir that it will make a second call HTTP POST with the following paramaters
+	
+		I. grant_type with the value of authorization_code
+		II. client_id with the client identifier
+		III. client_secret with the client secret
+		IV. redirect_uri with the same redirect URI the user was redirect back to
+		V. code with the authorization code received from the first call
+		
+	K. Finally the Auth Server responds to the second call with the following
+	
+		I. token_type with the value Bearer
+		II. expires_in integer for the TTL value
+		III. access_token the access token itself
+		IV. refresh_token to renew the access token 
+		
+	L. Now the client is ready to make the actual resource data call to serve its userbase. It sends the access token as a paramater with this call.
+	
+	M. The client also sets a timer to get notified a little before the access token goes to expires and goes to heaven. In that timer event, the client may decide to make the call to the Auth Server with the refresh token to get a new access token
+	
+	
+# 4. Implicit grant is for Browser based JavaScript Single , Double, Tripple or Multiple Page Applications for which the entire world including all Hackers can see the JavaScript Code and constants like client identifier and client secret being used.
+
+	A. As these type of open to the world applications, cannot keep and use a client identifier and client secret, they do not involve the call to first get an Auth Code
+	
+	B. Theses clients make a SINGLE call to the Auth Server and get their access token directly.
+	
+	C. Following paramaters are sent to the Auth Server by the user agent (browser) based JavaScript Applications
+	
+		I. response_type with the value token. NOTE THE DIFFERENCE HERE. Auth Flow sends this as "code" not token
+		II. client_id with the client identifier
+		III. redirect_uri : When the call to the auth server completes with success . failure where should the Auth server redirect the client to
+		IV. scope - Read Contacts, Add Contacts, Get Products, Add Product etc.
+		V. state with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal but highly recommended to protect against all the gentlemen out there in the Internet
+		
+	D. Finally the Auth Server responds to the second call with the following
+	
+		I. token_type with the value Bearer
+		II. expires_in integer for the TTL value
+		III. access_token the access token itself
+	E. This Implicit Grant does not return a refresh token because the browser has no means of keeping it private
+	
+	F. Now the JavaScript can make actual functional calls to the resource server using the access token it received from the Auth Server.
+	
+	E. When the Resource Server gets a call from its clients, it validates the access token with the Aiuth Server and when the validation goes well, it responds data to the clients.
+	
+# 5. Resource owner credentials grant or Resource owner Password credentials grant
+
+	A. This is the weakest of all the OAuth2 flows.
+	
+	B. This is one way of integrating your legacy applications with OAuth2
+	
+	C. This is applicable when the company that owns the Resource Server also owns the Clients. Clients can be Web Apps, native mobile apps or JavaScript Apps
+	
+	D. The client first asks a username and password from the resource owner
+	
+	E. The client then sends a POST request to the Auth Server along with the following
+	
+		I. grant_type with the value password
+		II. client_id with the the client’s ID
+		III. client_secret with the client’s secret
+		IV. scope with a space-delimited list of requested scope permissions.
+		V. username with the user’s username
+		VI. password with the user’s password
+	
+	D. The Auth Server validates the username and password and responds with
+	
+		I. token_type with the value Bearer
+		II. expires_in with an integer representing the TTL of the access token
+		III. access_token the access token itself
+		IV. refresh_token a refresh token that can be used to acquire a new access token 		when the original expires
+		
+# 6. Client credentials grant
+
+	A. This grant type of ideal for IoT devices or any other client machines that needs to access some servers.
+	
+	B. As all the machines can use one permission and a specific user's permission is not required, this is rhe simplest of all OAuth2 flows like
+	
+	C. Machines send a POST request with the following
+	
+		I. grant_type with the value client_credentials
+		II. client_id with the the client’s ID
+		III. client_secret with the client’s secret
+		IV. scope with a space-delimited list of requested scope permissions.
+		
+	D. The Auth Server responds with the following
+	
+		I. token_type with the value Bearer
+		II. expires_in with an integer representing the TTL of the access token
+		III. access_token the access token itself
+
+# 7. Summary
+
+	A. Third party Server Side Application rfrom Startups eluctant / unwilling to invest in Authorization Service - Use Auth Code Grant Type
+	
+	B. Third party Client Side JavaScript Application rfrom Startups eluctant / unwilling to invest in Authorization Service - Use Implicit Code Grant Type
+	
+	C. Legacy Applications that owns the Client Application as well - Use Resource Owner Password Grant Type
+	
+	D. Do not have a Heart consider yourself a Machine - Use Client Credentials Grant Type
+	
