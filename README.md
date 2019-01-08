@@ -108,7 +108,7 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 	Facebook / Google to provide authentication / authorization services instead 
 	of providing their own , risking legal suites in case of hacking.
 	
-	B. <pre><code>These type of clients start with first registering themselves 
+	B. These type of clients start with first registering themselves 
 	with the Authorization Service Provider such as FaceBook
 	
 	C. When these applications, register they get two things among others
@@ -202,9 +202,11 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 	E. This Implicit Grant does not return a refresh token because the browser has 
 	no means of keeping it private
 	
-	F. Now the JavaScript can make actual functional calls to the resource server using the access token it received from the Auth Server.
+	F. Now the JavaScript can make actual functional calls to the resource server 
+	using the access token it received from the Auth Server.
 	
-	E. When the Resource Server gets a call from its clients, it validates the access token with the Aiuth Server and when the validation goes well, it responds data to the clients.
+	E. When the Resource Server gets a call from its clients, it validates the access t
+	oken with the Aiuth Server and when the validation goes well, it responds data to the clients.
 	
 # 5. Resource owner credentials grant or Resource owner Password credentials grant
 
@@ -212,7 +214,8 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 	
 	B. This is one way of integrating your legacy applications with OAuth2
 	
-	C. <pre><code>This is applicable when the company that owns the Resource Server also owns the Clients. Clients can be Web Apps, native mobile apps or JavaScript Apps</code></pre>
+	C. This is applicable when the company that owns the Resource Server also 
+	owns the Clients. Clients can be Web Apps, native mobile apps or JavaScript Apps
 	
 	D. The client first asks a username and password from the resource owner
 	
