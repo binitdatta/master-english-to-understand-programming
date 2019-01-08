@@ -93,6 +93,18 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 
 # Answer
 
+# 0. What is OAuth2 
+
+A Specification i.e. website, PDF document created by representatives of large technology corporations like Google, Facebook, Microsoft, IBM, Salesforce, Amazon, Oracle and others. I am not sure if Apple took part as well. First they created OAuth1 and like Tech Companies always do followed the principle "Experts are the people who Complicate Simple Things". OAuth2 followed with simplifying the process. 
+
+## 0. What service does OAuth2 provide
+
+Authentication and Authorization. Authentication deals with verifying the user is the person trying to login and not a remote impersonted friend from far away countries. Authorization is the process of verifying that the authenticated user has permission to execute a service / perform a task. For example, I may have the permission to view some rsales eports in an internal company website but my manager only has the permission to make the numbers look acceptable i.e. change the report for bosses higher up.
+
+# 0. What is an OAuth2 Implementation
+
+Some of these companies who took part in creation of the specification i.e. PDF Document, implemented their own OAuth2 service
+
 # 1. OAuth2 Roles
 
 	## A. Resource Owner : User
