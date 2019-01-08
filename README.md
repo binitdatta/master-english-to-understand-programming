@@ -97,13 +97,13 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 
 A Specification i.e. website, PDF document created by representatives of large technology corporations like Google, Facebook, Microsoft, IBM, Salesforce, Amazon, Oracle and others. I am not sure if Apple took part as well. First they created OAuth1 and like Tech Companies always do followed the principle "Experts are the people who Complicate Simple Things". OAuth2 followed with simplifying the process. 
 
-## 0. What service does OAuth2 provide
+# 0. What service does OAuth2 provide
 
-Authentication and Authorization. Authentication deals with verifying the user is the person trying to login and not a remote impersonted friend from far away countries. Authorization is the process of verifying that the authenticated user has permission to execute a service / perform a task. For example, I may have the permission to view some rsales eports in an internal company website but my manager only has the permission to make the numbers look acceptable i.e. change the report for bosses higher up.
+Authentication and Authorization. Authentication deals with verifying the user is the person trying to login and not a remote impersonted friend from far away countries. Authorization is the process of verifying that the authenticated user has permission to execute a service / perform a task. For example, I may have the permission to view some sales reports in an internal company website but my manager only has the permission to make the numbers look acceptable i.e. change the report for bosses higher up.
 
 # 0. What is an OAuth2 Implementation
 
-Some of these companies who took part in creation of the specification i.e. PDF Document, implemented their own OAuth2 service
+Some of these companies who took part in creation of the specification i.e. PDF Document, implemented their own OAuth2 service. For example, when you visit www.slideshare.com , if gives you an opportunity to login using your LinkedIn userid and password as if LinkedIn does a lot to protect / secure your username and password (It probably does now after an embarrassing  data breach six/seven yeacrs back) . That is your first introduction to OAuth2 without really knowing what goes underneath. 
 
 # 1. OAuth2 Roles
 
