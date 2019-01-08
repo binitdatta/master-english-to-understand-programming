@@ -281,3 +281,12 @@ Some of these companies who took part in creation of the specification i.e. PDF 
 	
 	D. Do not have a Heart consider yourself a Machine - Use Client Credentials Grant Type
 	
+# How does Spring Security be implemented in Microservices. 
+
+Microservices may need Authentication and Authorization features. Spring Boot is the Michael Jordan of Microservices. If you are lucky, you have implemented your Microservices in Spring Boot as Spring Boot has the most number of supporting libraries (over 40) for Microservices. Spring Security is one of those highly popular libraries even though it is quite old. Spring Security has kept an excellent pace with time and provides an excellent implementation for all the OAuth2 grant type / flows. We may also need API Security based on Json Web Token (JWT) and again Spring Security goes a long way to keep you secured there. Here is an example that shows how to integrate an angular 6 client with Spring Boot 2 REST API. https://github.com/binitdatta/rollingstone-spring-security. I worked on this POC with another highly talented engineer called Rohan Grover and forked it to do some UI enhancement which is pending. 
+
+NOTE: If you are not lucky and have not chosen Spring Boot (all the other guys are just REST APIs and nothing else and that includes DOT NET, NodeJS, PHP and any other language / framework under the sun. However, with DOT NET we can use the https://steeltoe.io/ to get the benefits.), you can create a wrapper Proxy API in Spring Boot to provide security. 
+
+# Does internal Microservice to Microservice calls require authentication
+
+Think about a huge house with 20 rooms. Imagine each room as a Microservice. Only the front door Microservice i.e. Main Gate, needs security, right? Rooms inside the house do not. Microservice REST APIs are very similar. Security or not, our clients should never ever be forced to call hundreds of separate Microservices. Never. We should instead create an API Gateway on our own implementing Spring Cloud Zuul or Spring Cloud API Gateway or we can use a Vendor's implementation of API Gateway like Amazon, Azure, Google, APIGEE and others. It is at that API Gateway layer your clients will be authenticated. For custom implementations, we can imagine the Spring Cloud Zuul / API Gateway implementing Spring Security. Individual Microservices better be exposed only through the API Gateway like our inner rooms of the large house.
