@@ -183,7 +183,8 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 	
 	B. Theses clients make a SINGLE call to the Auth Server and get their access token directly.
 	
-	C. Following paramaters are sent to the Auth Server by the user agent (browser) based JavaScript Applications
+	C. Following paramaters are sent to the Auth Server by the user agent (browser) 
+	based JavaScript Applications
 	
 		I. response_type with the value token. NOTE THE DIFFERENCE HERE. 
 		Auth Flow sends this as "code" not token
@@ -233,7 +234,8 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 		I. token_type with the value Bearer
 		II. expires_in with an integer representing the TTL of the access token
 		III. access_token the access token itself
-		IV. refresh_token a refresh token that can be used to acquire a new access token 		when the original expires
+		IV. refresh_token a refresh token that can be used to acquire a new access token 
+		when the original expires
 		
 # 6. Client credentials grant
 
