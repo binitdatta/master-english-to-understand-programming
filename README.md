@@ -104,41 +104,55 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 
 # 3. Authorization Code Grant 
 
-	A. <pre><code>This is for the type of third party applications that wants to leverage Facebook / Google to provide authentication / authorization services instead of providing their own , risking legal suites in case of hacking.</code></pre>
+	A. This is for the type of third party applications that wants to leverage 
+	Facebook / Google to provide authentication / authorization services instead 
+	of providing their own , risking legal suites in case of hacking.
 	
-	B. <pre><code>These type of clients start with first registering themselves with the Authorization Service Provider such as FaceBook
+	B. <pre><code>These type of clients start with first registering themselves 
+	with the Authorization Service Provider such as FaceBook
 	
 	C. When these applications, register they get two things among others
 	
 		I. A Client Identifier
 		II. A Client Secret
 		
-	D. <pre><code>Registration is an one time activity and do not needs to happen every-time the client uses the Auth Service</code></pre>
+	D. Registration is an one time activity and do not needs to 
+	happen every-time the client uses the Auth Service
 	
-	E. <pre><code>As these types of clients need to keep a pair client identifier and the client secret they typically runs in the server as browse javascript clients cannot keep secrets</code></pre>
+	E. As these types of clients need to keep a pair client identifier and the 
+	client secret they typically runs in the server as browse javascript clients cannot keep secrets
 	
 	F. The clients in this grant type make two calls 
 	
 		I. First call to get an Auth Code from the Auth Server
-		II. <pre><code>The second call using the Auth Code received from the first call, gets the client their actual access token. The access token is short lived i.e. 15 minutes not 15 years.</code></pre>
-		III. <pre><code>Finally clients make the actual service call i.e. get your friend list from Facebook , using the access token</code></pre>
-		IV. From time to time, client also make another call to the Auth Server to refresh the access token
+		II. The second call using the Auth Code received from the first call, 
+		gets the client their actual access token. The access token is short lived 
+		i.e. 15 minutes not 15 years.
+		III. Finally clients make the actual service call i.e. get your friend list 
+		from Facebook , using the access token
+		IV. From time to time, client also make another call to the Auth Server 
+		to refresh the access token
 
 	G. Following are the parameters that the client sends for the auth code call i.e. first call HTTP GET
 		
 		I. response_type with the value code
 		II. client_id with the client identifier
-		III. <pre><code>redirect_uri : When the call to the auth server completes with success . failure where should the Auth server redirect the client to</code></pre>
+		III. redirect_uri : When the call to the auth server completes with success . 
+		failure where should the Auth server redirect the client to
 		IV. scope - Read Contacts, Add Contacts, Get Products, Add Product etc.
-		V. <pre><code>state with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal but highly recommended to protect against all the gentlemen out there in the Internet</code></pre>
+		V. state with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal 
+		but highly recommended to protect against all the gentlemen out there in the Internet
 		
 		
-	H. <pre><code>When the Auth Server determines that the call paramaters sent in the above call are all valid, it send an auth code with the CSRF token back to the client reditect_uri</code></pre>
+	H. When the Auth Server determines that the call paramaters sent in the above 
+	call are all valid, it send an auth code with the CSRF token back to the client reditect_uri
 	
-	I. <pre><code>The client should match the value of the CSRF token sent back by the Auth Server with the one it originally sent to the Auth Server</code></pre>
+	I. The client should match the value of the CSRF token sent 
+	back by the Auth Server with the one it originally sent to the Auth Server<
 	
 	
-	J. <pre><code>Now that the client has the Auth Code, it needs the access token and fir that it will make a second call HTTP POST with the following paramaters</code></pre>
+	J. Now that the client has the Auth Code, it needs the access token and for that 
+	it will make a second call HTTP POST with the following paramaters
 	
 		I. grant_type with the value of authorization_code
 		II. client_id with the client identifier
@@ -153,35 +167,44 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 		III. access_token the access token itself
 		IV. refresh_token to renew the access token 
 		
-	L. <pre><code>Now the client is ready to make the actual resource data call to serve its userbase. It sends the access token as a paramater with this call.</code></pre>
+	L. Now the client is ready to make the actual resource data call to serve its userbase. 
+	It sends the access token as a paramater with this call.
 	
-	M. <pre><code>The client also sets a timer to get notified a little before the access token goes to expires and goes to heaven. In that timer event, the client may decide to make the call to the Auth Server with the refresh token to get a new access token</code></pre>
+	M. The client also sets a timer to get notified a little before the access 
+	token goes to expires and goes to heaven. In that timer event, the client 
+	may decide to make the call to the Auth Server with the refresh 
+	token to get a new access token
 	
 	
 # 4. Implicit grant is for Browser based JavaScript Single , Double, Tripple or Multiple Page Applications for which the entire world including all Hackers can see the JavaScript Code and constants like client identifier and client secret being used.
 
-	A. <pre><code>As these type of open to the world applications, cannot keep and use a client identifier and client secret, they do not involve the call to first get an Auth Code</code></pre>
+	A. As these type of open to the world applications, cannot keep and use a client 
+	identifier and client secret, they do not involve the call to first get an Auth Code
 	
 	B. Theses clients make a SINGLE call to the Auth Server and get their access token directly.
 	
 	C. Following paramaters are sent to the Auth Server by the user agent (browser) based JavaScript Applications
 	
-		I. <pre><code>response_type with the value token. NOTE THE DIFFERENCE HERE. Auth Flow sends this as "code" not token</code></pre>
+		I. response_type with the value token. NOTE THE DIFFERENCE HERE. 
+		Auth Flow sends this as "code" not token
 		II. client_id with the client identifier
-		III. <pre><code>redirect_uri : When the call to the auth server completes with success . failure where should the Auth server redirect the client to</code></pre>
+		III. redirect_uri : When the call to the auth server completes with success . 
+		failure where should the Auth server redirect the client to
 		IV. scope - Read Contacts, Add Contacts, Get Products, Add Product etc.
-		V. s<pre><code>tate with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal but highly recommended to protect against all the gentlemen out there in the Internet</code></pre>
+		V. state with a CSRF token - Croos Site Request Forgery (CSRF) Optinoal 
+		but highly recommended to protect against all the gentlemen out there in the Internet
 		
 	D. Finally the Auth Server responds to the second call with the following
 	
 		I. token_type with the value Bearer
 		II. expires_in integer for the TTL value
 		III. access_token the access token itself
-	E. <pre><code>This Implicit Grant does not return a refresh token because the browser has no means of keeping it private</code></pre>
+	E. This Implicit Grant does not return a refresh token because the browser has 
+	no means of keeping it private
 	
-	F. <pre><code>Now the JavaScript can make actual functional calls to the resource server using the access token it received from the Auth Server.</code></pre>
+	F. Now the JavaScript can make actual functional calls to the resource server using the access token it received from the Auth Server.
 	
-	E. <pre><code>When the Resource Server gets a call from its clients, it validates the access token with the Aiuth Server and when the validation goes well, it responds data to the clients.</code></pre>
+	E. When the Resource Server gets a call from its clients, it validates the access token with the Aiuth Server and when the validation goes well, it responds data to the clients.
 	
 # 5. Resource owner credentials grant or Resource owner Password credentials grant
 
@@ -213,7 +236,8 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 
 	A. This grant type of ideal for IoT devices or any other client machines that needs to access some servers.
 	
-	B. <pre><code>As all the machines can use one permission and a specific user's permission is not required, this is rhe simplest of all OAuth2 flows like</code></pre>
+	B. As all the machines can use one permission and a specific user's permission is 
+	not required, this is rhe simplest of all OAuth2 flows like
 	
 	C. Machines send a POST request with the following
 	
@@ -230,11 +254,13 @@ In general the BOM term came from the manufacturing world and it stands for Bill
 
 # 7. Summary
 
-	A. <pre><code>Third party Server Side Application rfrom Startups eluctant / unwilling to invest in Authorization Service - Use Auth Code Grant Type</code></pre>
+	A. Third party Server Side Application rfrom Startups eluctant / unwilling to 
+	invest in Authorization Service - Use Auth Code Grant Type
 	
-	B. <pre><code>Third party Client Side JavaScript Application rfrom Startups eluctant / unwilling to invest in Authorization Service - Use Implicit Code Grant Type</code></pre>
+	B. Third party Client Side JavaScript Application rfrom Startups eluctant / unwilling 
+	to invest in Authorization Service - Use Implicit Code Grant Type
 	
-	C. <pre><code>Legacy Applications that owns the Client Application as well - Use Resource Owner Password Grant Type</code></pre>
+	C. Legacy Applications that owns the Client Application as well - Use Resource Owner Password Grant Type
 	
 	D. Do not have a Heart consider yourself a Machine - Use Client Credentials Grant Type
 	
