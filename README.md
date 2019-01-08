@@ -108,7 +108,7 @@ Some of these companies who took part in creation of the specification i.e. PDF 
 # 1. OAuth2 Roles
 
 	## A. Resource Owner : User
-	## B. Resource Server : Google Mail / Gmail
+	## B. Resource Server : Google Mail / Gmail / BestBuy Product API, Your Company's Checkout REST API
 	## C. Authorization Server : The Server issuing Access Token i.e. Facebook / Google
 	## D. Client i.e. Browser based SPAs, Server Side Spring Boot / NodeJS Client, Machines, 
 	
