@@ -309,3 +309,32 @@ What these native properties of the Cloud country means is that applications run
 Another popular grammer that the Cloud language expects application to know, is being stateless. Being the opposite is bad even on non cloudy sunny days. Why the cloud dislikes stateful applications? Because of the same vulnerable and cheap hardware powering the cloud again. If between multiple calls of a stateful application, the hardware on which the app is running decides to take a vacation i.e. stop working, then the application team would be restless even if they are not stateless. Short term memory loss and dementia are bad for humans but they are good for Cloud applications. Applications, targeted for Cloud deployment, should not remember anything between calls to be Cloud Native.
 
 Like I mentioned two here, being Cloud native means we (our applications) learn the grammer of the language spoken in the Cloud country. So teaching the language spoken in the Cloud country to our applications before they are migrated to the Cloud is known as the process of being Cloud Native. Cloud Native Experts are skilled to lecture elaborately to customers about what Cloud Native means but this is the underlying truth. Once we know them clearly, we can work better with experts . 
+
+# Data Persistance in Microservice  : Standalone Database or a Shared one, Which one is best?
+
+# Answer
+
+The super short answer is that it depends. The idea of Microservices was coined by noted Computer Scientist Martin Fowler (https://martinfowler.com/articles/microservices.html#CharacteristicsOfAMicroserviceArchitecture). Fowler proposes that each Microservice has its own dedicated database. Since then, the idea of a dedicated database for each Microservice has been written about in hundreds of related books, blogs , official Wiki pages from early adapter companies.
+
+Apart from Mr. Fowler, the other significant contribution towards the Microservices architecture came from the company Netflix. Not only they invested and later open sourced a significant number libraries implementing the Microservice ecosystem, their success using the Microservices architecture were keenly observed by CIOs across multiple business verticals. 
+
+One aspect that has to be noted about the practical Microservice role model i.e. Netflix is that the company was new and a startup (not anymore). They had a free had, did not have to deal with decades old legacy systems to deploy new systems in production. That single fact gave them significant momentum in creating a Microservice based system. As with all of us, we follow other people success more than we understand their challenges, situation or the same of our own.
+
+When we try to repeat the same Microservice success story in Banks, Insurance, Healthcare, Manufacturing and other major business verticals that are decades if not centuries old, we face a significantly different challenge. Let us try to understand these challenges using an example.
+
+How legacy companies such as Banks, Insurance and Healthcare are different from the types of Netflix is that they have invested millions of dollars over the years in building a very complex Enterprise Date Warehouse, ETL systems, Master Data Management (MDM) products etc. In such interconnected companies, the output of one applications is frequently the input of another. These companies also have budget limitations from from money and time perspectives. When Netflix decides to have a single dedicated database for each of its Microservices, that is easy because there are hardly any downstream system they would break by that decision. When a large bank tries to apply the same design criteria with a say 15 millon dollar and within next 8 months budget to convert one monolithic application into Microservices Architecture, they come quickly to the unpleasant reality that this decision breaks their EDW and ETL process and they may need another 30 million to replace the EDW datasources apart from the huge impact on their business users of those EDW / BI systems. Architects who would readily suggest the Netflix architecture for a legacy Bank, Healthcare and Insurance company are probably not aware the enterprise legacy bottlenecks and the impact on his/her decision on them.
+
+However, the Microservices architecture even if it can be applied 80 percent in a legacy company without following the dedicate database dictat, delivers a huge gain in efficiency few large companies can and should ignore. The original pain that gave birth to the Microservices architecture are 
+
+# A. The long time it takes to deploy monolithic application. 
+
+# B. The other idea that drove the Microservice movement is one small error in one part of a large monolithic application impacting other healthy parts.
+
+Seeing from these two aspects, the Microservice migration projects in any type of company is a business driven project not  technology driven one, even though a lot of people understand Microservice projects solely from the technology used. That is a mistake, though. Even after using the best breed of technologies used, if the organization does not realize faster time to market with new features deployment and strict resource boundaries protecting good services from bad ones, the entire project may do little to realize the business objectives.
+
+The solution is to take a middle path. Microservice migration projects that converts large monolithic applications into smaller services following the right sized API boundaries delivers huge gains to the business organization even if they use a single shared database but lives no impact on other downstream systems. The projct may remain on time and cost budget and may actually encourage the CIO to commission the project rather than discarding it when presented with the added complexities of converting the downstream EDS systems along with the target system. 
+
+At the same time, legacy organizations, may do well to work actively from moving away (at their own pace) from legacy EDW systems to modern loosely coupled real time streaming based analytics, Big Data and NoSQL platfroms to reduce the impact of changing an upstream system on the downstream ones.
+
+As we may realize that there are lots of bullets but none of them, colored "silver" which tells us that the "Netflix" story may not be entirely applicable to a 100 years old Bank, even though large parts of it could be.
+
