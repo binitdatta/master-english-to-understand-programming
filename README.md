@@ -271,15 +271,15 @@ Some of these companies who took part in creation of the specification i.e. PDF 
 
 # 7. Summary
 
-	A. Third party Server Side Application rfrom Startups eluctant / unwilling to 
+	A. Third party Server Side Applications from Startups / reluctant / unwilling to 
 	invest in Authorization Service - Use Auth Code Grant Type
 	
-	B. Third party Client Side JavaScript Application rfrom Startups eluctant / unwilling 
+	B. Third party Client Side JavaScript Applications from Startups reluctant / unwilling 
 	to invest in Authorization Service - Use Implicit Code Grant Type
 	
 	C. Legacy Applications that owns the Client Application as well - Use Resource Owner Password Grant Type
 	
-	D. Do not have a Heart consider yourself a Machine - Use Client Credentials Grant Type
+	D. Do not have a Heart, consider yourself a Machine - Use Client Credentials Grant Type
 	
 # How does Spring Security be implemented in Microservices. 
 
